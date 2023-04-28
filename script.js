@@ -11,6 +11,7 @@ let resultCount = document.querySelector('.result-count');
 let restartBtn = document.querySelector('.restart-btn');
 
 const ANSWER = 'abc';
+const LIMIT_ANSWER = 2;
 let count = 0;
 
 function initGame() {
@@ -47,13 +48,36 @@ function showStart() {
 function answer() {
   let userAnswer = '';
   let question = 'Nhập đáp án:';
-  while (userAnswer != ANSWER) {
+  // while(userAnswer  != ANSWER) // check dk truoc
+  // {
+  //   if(count > 0) {
+  //     question = `Bạn nhập sai rồi nhập lại đi Bạn còn lại ${LIMIT_ANSWER - count}:`;
+  //   }
+  //   if(count == LIMIT_ANSWER)
+  //   {
+  //     count = 'Bạn đã nhập hết số lần giớ hạn'
+  //     break;
+  //   }
+  //   userAnswer = prompt(question);
+  //   count++; // count =1
+  // }
+
+  do {
+    // chay lenh truoc
+
     if (count > 0) {
-      question = 'Bạn nhập sai rồi nhập lại đi:';
+      question = `Bạn nhập sai rồi nhập lại đi Bạn còn lại ${
+        LIMIT_ANSWER - count
+      }:`;
+    }
+    if (count == LIMIT_ANSWER) {
+      count = 'Bạn đã nhập hết số lần giớ hạn';
+      break;
     }
     userAnswer = prompt(question);
-    count++;
-  }
+    count++; // count = 1
+  } while (userAnswer != ANSWER);
+
   resultCount.innerHTML = count;
   showResult();
   hideMainGame();
@@ -68,7 +92,6 @@ btnStart.addEventListener('click', function () {
 
 answerBtn.addEventListener('click', function () {
   console.log('answer click');
-
   answer();
 });
 
